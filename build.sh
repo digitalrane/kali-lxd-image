@@ -13,8 +13,8 @@ sudo gpg --no-default-keyring --keyring /usr/share/keyrings/kali-archive-keyring
 
 echo "Bootstrappin'"
 # Do the 'strap
-#sudo rm -Rf ./kali-root
-#sudo debootstrap --arch=amd64 kali-rolling ./kali-root http://http.kali.org/kali ./kali-debootstrap --include isc-dhcp-client,sudo,vim,ifupdown,iproute2,ssh,apt-transport-https 
+sudo rm -Rf ./kali-root
+sudo debootstrap --arch=amd64 kali-rolling ./kali-root http://http.kali.org/kali ./kali-debootstrap --include isc-dhcp-client,sudo,vim,ifupdown,iproute2,ssh,apt-transport-https 
 
 echo "Writing config files to container image"
 mkdir -p ./etc/network
