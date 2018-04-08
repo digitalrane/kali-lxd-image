@@ -2,7 +2,9 @@
 
 echo "Installing dependencies"
 # Install dependencies (debootstrap)
-sudo apt-get -y install debootstrap gpg curl lxc
+sudo apt-get -y install gpg
+sudo apt-get -y install gpgv
+sudo apt-get -y install debootstrap curl lxc
 
 echo "Fetching debootstrap template for kali"
 # Fetch the latest Kali debootstrap script from git
