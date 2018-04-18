@@ -2,14 +2,19 @@
 
 echo "Installing dependencies"
 # Install dependencies (debootstrap)
-sudo apt-get -y install debootstrap gpg curl lxc
+sudo apt-get -y install gpg
+sudo apt-get -y install gpgv
+sudo apt-get -y install debootstrap curl lxc
 
 echo "Fetching debootstrap template for kali"
 # Fetch the latest Kali debootstrap script from git
 curl "http://git.kali.org/gitweb/?p=packages/debootstrap.git;a=blob_plain;f=scripts/kali;hb=HEAD" > kali-debootstrap 
 
+echo "Running GPG to setup the environment in case it's the first time"
+sudo -i gpg </dev/null
+
 echo "Importing kali release GPG to /usr/share/keyrings/kali-archive-keyring.gpg"
-sudo gpg --no-default-keyring --keyring /usr/share/keyrings/kali-archive-keyring.gpg --fingerprint --recv-keys ED444FF07D8D0BF6 
+sudo -i gpg --no-default-keyring --keyring /usr/share/keyrings/kali-archive-keyring.gpg --fingerprint --recv-keys ED444FF07D8D0BF6 
 
 echo "Bootstrappin'"
 # Do the 'strap
