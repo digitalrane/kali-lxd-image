@@ -2,9 +2,8 @@
 
 echo "Installing dependencies"
 # Install dependencies (debootstrap)
-sudo apt-get -y install gpg
-sudo apt-get -y install gpgv
-sudo apt-get -y install debootstrap curl lxc
+sudo apt-get -y install gpg gpgv debootstrap curl snapd faketime
+sudo snap install lxd
 
 echo "Fetching debootstrap template for kali"
 # Fetch the latest Kali debootstrap script from git
@@ -19,7 +18,8 @@ sudo -i gpg --no-default-keyring --keyring /usr/share/keyrings/kali-archive-keyr
 echo "Bootstrappin'"
 # Do the 'strap
 sudo rm -Rf ./kali-root
-sudo debootstrap --arch=amd64 kali-rolling ./kali-root http://http.kali.org/kali ./kali-debootstrap --include isc-dhcp-client,sudo,vim,ifupdown,iproute2,ssh,apt-transport-https 
+# Stupid temporary workaround due to bad date in InRelease file
+sudo faketime 2019-01-01 debootstrap --arch=amd64 kali-rolling ./kali-root http://kali.download/kali ./kali-debootstrap --include isc-dhcp-client,sudo,vim,ifupdown,iproute2,ssh,apt-transport-https 
 
 echo "Writing config files to container image"
 mkdir -p ./etc/network
@@ -72,4 +72,4 @@ echo "Tarring up image"
 sudo tar -f kali-root.tar -C kali-root -c . 
 
 echo "Importing image"
-sudo lxc image import metadata.tar kali-root.tar --alias kali --verbose
+lxc image import metadata.tar kali-root.tar --alias kali --verbose
