@@ -7,7 +7,7 @@ sudo snap install lxd
 
 echo "Fetching debootstrap template for kali"
 # Fetch the latest Kali debootstrap script from git
-curl "http://git.kali.org/gitweb/?p=packages/debootstrap.git;a=blob_plain;f=scripts/kali;hb=HEAD" > kali-debootstrap 
+curl "https://gitlab.com/kalilinux/packages/debootstrap/raw/kali/master/scripts/kali" > kali-debootstrap 
 
 echo "Running GPG to setup the environment in case it's the first time"
 sudo -i gpg </dev/null
